@@ -27,6 +27,7 @@ SOFTWARE.
 // identical Lua instructions when passed to 'luac -l'.
 
 #include <stdio.h>
+#include <cstdlib>
 #include "util.h"
 #include "lua_simplifier.h"
 
