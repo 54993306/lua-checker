@@ -28,6 +28,7 @@ SOFTWARE.
 
 #include <stdio.h>
 #include <cstdlib>
+#include <cstring>
 #include "util.h"
 #include "lua_simplifier.h"
 

@@ -76,7 +76,7 @@ since 'v' must be evaluated only once:
 #define YYSTYPE char*
 
 // Error function called by the parser.
-int lua_parser_error(char *s);
+int lua_parser_error(const char *s);
 
 // Take printf-style arguments and return a new string on the heap.
 // The special word '@MarkerAndIndent@' is replaced by a filename:line_number marker and an
@@ -460,7 +460,7 @@ opt_special:
 
 %%
 
-int lua_parser_error (char *s) {
+int lua_parser_error (const char *s) {
   Panic("%s, at %s:%d", s, LexxerFilename(), LexxerLinecount());
 }
 
