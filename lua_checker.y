@@ -65,6 +65,7 @@ DONE:
 #include <map>
 #include <vector>
 #include <string>
+#include <cstring>
 #include "util.h"
 #include "lua_checker.h"
 #include "lua_checker_parser.h"
@@ -73,7 +74,7 @@ using std::vector;
 using std::map;
 
 // Functions called by the parser.
-int lua_parser_error(char *s);
+int lua_parser_error(const char *s);
 int lua_parser_lex(YYSTYPE *yylval_param, YYLTYPE *yylloc_param);
 
 // Type constants. TYPE_UNKNOWN means that the actual type either can't be
@@ -337,7 +338,7 @@ opt_const: { $$ = false; } | SPECIAL_CONST { $$ = true; } ;
 
 %%
 
-int lua_parser_error (char *s) {
+int lua_parser_error (const char *s) {
   Panic("%s, at %s:%d of simplified lua source", s, LexxerFilename(), LexxerLinecount());
 }
 
