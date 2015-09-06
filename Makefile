@@ -1,17 +1,19 @@
+LUA_INCLUDE_DIR = -Ilua/src
+LUA_LIB = lua/src/liblua.a
 
 APPS=lua_simplifier lua_checker
 
 GENERATED_FILES=lua_lexxer.cc  lua_parser.cc  lua_parser.h lua_checker_parser.cc lua_checker_parser.h
 
-CFLAGS=-Wall -g -Ilua/src -MMD
+CFLAGS=-Wall -g $(LUA_INCLUDE_DIR) -MMD
 
 all: $(APPS)
 
 lua_simplifier: lua_simplifier.o lua_lexxer.o lua_parser.o util.o
-	g++ $(CFLAGS) -o $@ $(OBJS) $^ lua/src/liblua.a
+	g++ $(CFLAGS) -o $@ $(OBJS) $^ $(LUA_LIB)
 
 lua_checker: lua_checker.o lua_lexxer.o lua_checker_parser.o util.o
-	g++ $(CFLAGS) -o $@ $(OBJS) $^ lua/src/liblua.a
+	g++ $(CFLAGS) -o $@ $(OBJS) $^ $(LUA_LIB)
 
 %.o: %.cc
 	g++ -c $(CFLAGS) $<
