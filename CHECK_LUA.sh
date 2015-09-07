@@ -2,6 +2,7 @@
 
 SRC=$1
 CLEAN_ASM="while(<>){s/^\t(\d+)\t\[\d+\]/\t\1/;s/(main|function) <[^\]]+>/function/;s/0x[0-9a-f]+//;print}"
+LUAC=lua/src/luac
 
 # Some shell settings
 set -o pipefail
@@ -17,9 +18,9 @@ function check() {
 echo "Step 1"
 rm -f /tmp/original.asm /tmp/simplified.asm /tmp/original.luac /tmp/simplified.luac
 check
-lua/src/luac -s -l -o /tmp/original.luac $SRC | perl -e "$CLEAN_ASM" > /tmp/original.asm
+$LUAC -s -l -o /tmp/original.luac $SRC | perl -e "$CLEAN_ASM" > /tmp/original.asm
 check
-./lua_simplifier -luac $SRC | lua/src/luac -s -l -o /tmp/simplified.luac - | perl -e "$CLEAN_ASM" > /tmp/simplified.asm
+./lua_simplifier -luac $SRC | $LUAC -s -l -o /tmp/simplified.luac - | perl -e "$CLEAN_ASM" > /tmp/simplified.asm
 check
 diff /tmp/original.asm /tmp/simplified.asm
 check
